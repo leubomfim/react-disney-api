@@ -1,19 +1,36 @@
 import { Container } from '../../components/Container';
 import { Characters } from '../../components/Characters/index';
 import { useDisneyContext } from '../../contexts/context';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import * as S from './styles';
+import { disneyApi } from '../../services/api';
 
 export const Home = () => {
-  const { setUrl, charactersUrl, searchValue, setParam, setDisabled } =
-    useDisneyContext();
-  const [page, setPage] = useState(1);
+  const {
+    charactersUrl,
+    searchValue,
+    setParam,
+    setUrl,
+    setDisabled,
+    url,
+    setCharactersUrl,
+    setCharacters,
+    page,
+    setPage,
+  } = useDisneyContext();
 
   useEffect(() => {
     setDisabled(false);
     setParam('');
-    setUrl('https://api.disneyapi.dev/characters?page=1');
-  }, [setUrl, setParam, setDisabled]);
+    disneyApi(url, setCharacters, searchValue, setCharactersUrl);
+  }, [
+    setParam,
+    setDisabled,
+    setCharactersUrl,
+    setCharacters,
+    searchValue,
+    url,
+  ]);
 
   const nextPage = () => {
     if (charactersUrl.nextPage) {

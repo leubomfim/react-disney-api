@@ -5,7 +5,7 @@ import { Container } from '../../components/Container/index';
 import { useDisneyContext } from '../../contexts/context';
 
 export const Details = () => {
-  const { setParam, detailCharacters, setUrl, setDisabled } =
+  const { setParam, detailCharacters, setUrl, setDisabled, setPage } =
     useDisneyContext();
   const navigate = useNavigate();
   const param = useParams();
@@ -19,6 +19,7 @@ export const Details = () => {
         {detailCharacters === null && <S.Loading>Loading...</S.Loading>}
         <S.Back
           onClick={() => {
+            setPage(1);
             setUrl('https://api.disneyapi.dev/characters?page=1');
             navigate('/');
           }}

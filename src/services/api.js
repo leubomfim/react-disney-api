@@ -3,26 +3,24 @@ import axios from 'axios';
 export const disneyApi = (
   url,
   setCharacters,
-  paramId,
   searchValue,
   setCharactersUrl,
 ) => {
-  if (paramId === '') {
-    axios
-      .get(url)
-      .then((resp) => {
-        const filteredCharacter = resp.data.data.filter((character) => {
-          return character.name.toLowerCase().includes(searchValue);
-        });
-        setCharactersUrl(resp.data);
-        setCharacters(searchValue === '' ? resp.data.data : filteredCharacter);
-      })
-      .catch((err) => {
-        console.log(err);
+  axios
+    .get(url)
+    .then((resp) => {
+      setCharactersUrl(resp.data);
+
+      const data = resp.data.data;
+      const filteredCharacter = data.filter((character) => {
+        return character.name.toLowerCase().includes(searchValue);
       });
-  } else {
-    return;
-  }
+
+      setCharacters(searchValue === '' ? resp.data.data : filteredCharacter);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 export const detailCharacterApi = (paramId, setDetailCharacters) => {

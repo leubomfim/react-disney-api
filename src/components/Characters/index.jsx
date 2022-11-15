@@ -11,8 +11,7 @@ export const Characters = () => {
   };
   return (
     <>
-      {characters === undefined && <S.Loading>Loading...</S.Loading>}
-      {characters.length === 0 && <S.Loading>No Characters.</S.Loading>}
+      {characters.length === 0 && <S.Loading>Loading...</S.Loading>}
       {characters && (
         <S.CharactersArea>
           {characters.map((el) => (
